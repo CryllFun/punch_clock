@@ -150,9 +150,7 @@ public class SignInOrCheckOut {
         loginwb();
         String token = "";
         int statusCode = 0;
-        HttpClient client1 = null;
-//	        //获取token
-        client1 =HttpClients.custom()
+        HttpClient client1 =HttpClients.custom()
                 .setDefaultCookieStore(cookieStore).build();
 
         HttpGet getToken = new HttpGet(baseUrl + "UIProcessor?Table=vem_wb_qdqc");

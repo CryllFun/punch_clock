@@ -45,45 +45,62 @@ public class TimedTask implements Runnable {
         String qc_time = "";
         Random r = new Random();
         System.out.println("--------------------定时打卡任务开始----------------------------------------");
-        String createTime = "18:00:0";
+        String createTime1 = "08:1";
+        String createTime2 = "17:3";
+        String qtsj = user.getQtsj();
+        if(qtsj!=null&&!"".equals(qtsj)){
+            createTime2 = qtsj;
+        }
+        String qdsj = user.getQdsj();
+        if(qdsj!=null&&!"".equals(qdsj)){
+            createTime1 = qdsj;
+        }
         String msg = "";
         boolean flag = true;
-        while (flag) { //不确定是否每秒都能取到:so不精确到秒
+        //不确定是否每秒都能取到:so不精确到秒
+        while (flag) {
             String time = HH_MM_SS.format(new Date());
             if(null!=testTime){
-                createTime = testTime;
+                createTime2 = testTime;
             }
-            if ((time.indexOf("08:40:0") != -1 || time.indexOf(createTime) != -1) && num1 == -1) {//每天08:40,18:00生成一个打卡时间
-                num1 = r.nextInt(10);
+            //每天08:10,17:30生成一个打卡时间
+            if ((time.indexOf(createTime1+"0:0") != -1 || time.indexOf(createTime2+"0:0") != -1) && num1 == -1) {
+                num1 = r.nextInt(9)+1;
                 System.out.println("num1:" + num1);
                 String today = yyyyddmm.format(new Date());
-                qd_time = today + " 08:4" + num1;//签到时间
-                qc_time = today + " 18:2" + num1;//签出时间
+                //签到时间
+                qd_time = today +" "+createTime1+ num1;
+                //签出时间
+                qc_time = today +" "+createTime2+ num1;
                 if(null!=testTime){
                     qc_time = today +" "+ testTime;
                 }
                 System.out.println("时间1:" + qd_time);
                 System.out.println("时间2:" + qc_time);
             }
-
-            if (num1 != -1) {//有随机数后才打卡
+            //有随机数后才打卡
+            if (num1 != -1) {
                 int week = Util.getWeekOfToday();
-                if (user.getClockWeek().contains(week)) {//排除不打卡的时间
+                //排除不打卡的时间
+                if (user.getClockWeek().contains(week)) {
                     System.out.println("非工作日,不打卡");
                     num1 = -1;
                     continue;
                 }
                 String now = yyyyddmmHHMMSS.format(new Date());
-                int type = 0;//签到
+                //签到
+                int type = 0;
                 if (!now.equals(qd_time) && !now.equals(qc_time)) {
                     continue;
                 }
+                //签出
                 if (now.equals(qc_time)) {
-                    type = 1;//签出
+                    type = 1;
                 }
                 msg = now;
+                //只打卡一次
                 try {
-                    num1 = -1;//只打卡一次
+                    num1 = -1;
                     SignInOrCheckOut inout = new SignInOrCheckOut();
                     msg += inout.qdqc(type, user);
                     System.out.println(msg);

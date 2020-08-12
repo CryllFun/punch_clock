@@ -26,7 +26,9 @@ public class CasController {
             @ApiImplicitParam(name="account",value="账号",required=true,paramType="query",dataType="String"),
             @ApiImplicitParam(name="password",value="密码",required=true,paramType="query",dataType="String"),
             @ApiImplicitParam(name="email",value="邮箱",paramType="query",dataType="String"),
-            @ApiImplicitParam(name="times",value="不打卡时间",required=true,paramType="query",dataType="String")
+            @ApiImplicitParam(name="times",value="不打卡时间",required=true,paramType="query",dataType="String"),
+            @ApiImplicitParam(name="qdsj",value="签到时间",required=true,paramType="query",dataType="String"),
+            @ApiImplicitParam(name="qtsj",value="签退时间",required=true,paramType="query",dataType="String")
     })
     @RequestMapping(value = "/start",method = RequestMethod.POST)
     public String taskStart(UserInfo userInfo) {

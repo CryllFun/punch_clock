@@ -18,7 +18,10 @@ public class UserInfo implements Serializable {
     private  String email = "";
     private  String mobile = "";
     private  String times = "";
-    private  List<Integer> clockWeek = new ArrayList<>();//不打卡时间
+    //不打卡时间
+    private  List<Integer> clockWeek = new ArrayList<>();
+    private String qdsj;
+    private String qtsj;
 
     public String getTimes() {
         return times;
@@ -77,6 +80,7 @@ public class UserInfo implements Serializable {
         return clockWeek;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -87,7 +91,9 @@ public class UserInfo implements Serializable {
                 email.equals(userInfo.email) &&
                 mobile.equals(userInfo.mobile) &&
                 times.equals(userInfo.times) &&
-                clockWeek.equals(userInfo.clockWeek);
+                clockWeek.equals(userInfo.clockWeek) &&
+                qdsj.equals(userInfo.qdsj) &&
+                qtsj.equals(userInfo.qtsj);
     }
 
     @Override
@@ -106,5 +112,21 @@ public class UserInfo implements Serializable {
                 continue;
             }
         }
+    }
+
+    public String getQdsj() {
+        return qdsj;
+    }
+
+    public void setQdsj(String qdsj) {
+        this.qdsj = qdsj;
+    }
+
+    public String getQtsj() {
+        return qtsj;
+    }
+
+    public void setQtsj(String qtsj) {
+        this.qtsj = qtsj;
     }
 }
